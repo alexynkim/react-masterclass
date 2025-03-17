@@ -1,41 +1,142 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+// #2.1 First Styled component
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const Shape = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: raw;
   margin: 20px;
 `;
+
+// #2.2 Adapting and Extending
 
 const Box = styled.div`
   background-color: ${(p) => p.$bgcolor};
   width: 100px;
   height: 100px;
   margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Circle = styled(Box)`
   border-radius: 40px;
 `;
 
-const Text = styled.h1`
+const Text = styled.h2`
   color: white;
+`;
+
+// #2.3 'As' and "attributes"
+
+const Btn = styled.button`
+  color: white;
+  background-color: tomato;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
 `;
 
 const Input = styled.input.attrs({ required: true, minLength: 10 })`
   width: 50px;
   height: 50px;
   background-color: beige;
+  margin: 5px;
 `;
+
+// #2.4 Animations and Pseudo Selectors
+
+const rotationAnim = keyframes`
+  0% {
+    transform: rotate(0deg);
+    border-radius: 0px;
+  }
+  50% {
+    transform: rotate(360deg);
+    border-radius: 100px;
+  }
+  100% {
+    transform: rotate(0deg);
+    border-radius: 0px;
+  }
+`;
+
+const slideInAnim = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+const StyleBox = styled.div`
+  height: 200px;
+  width: 200px;
+  color: white;
+  background-color: darkcyan;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: ${rotationAnim} 2s linear infinite;
+  margin: 50px;
+`;
+
+const StyleBoxPolygon = styled(StyleBox)`
+  background-color: darkmagenta;
+  clip-path: polygon(
+    25% 0%,
+    75% 0%,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0% 75%,
+    0% 25%
+  );
+  span {
+    font-size: 30px;
+    &:hover {
+      font-size: 60px;
+    }
+    &:active {
+      opacity: 0;
+    }
+  }
+`;
+
+// #2.5 Pseudo Selectors part Two\
+const Emoji = styled.span`
+  font-size: 30px;
+`;
+
+const StyleBoxTrepezoid = styled(StyleBox)`
+  background-color: darkred;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  ${Emoji}:hover {
+    font-size: 90px;
+    &:active {
+      opacity: 0;
+    }
+  }
+`;
+
+// Main Exported rendering function
 
 function ExerciseStyle() {
   return (
     <Container>
-      <Shape>
+      <Wrapper>
         <Box $bgcolor="blue">
           <Text>Hello</Text>
         </Box>
@@ -45,14 +146,30 @@ function ExerciseStyle() {
         <Circle $bgcolor="red">
           <Text>Morning</Text>
         </Circle>
-      </Shape>
-      <Shape>
+      </Wrapper>
+      <Wrapper>
         <Input></Input>
         <Input></Input>
         <Input></Input>
-        <Input></Input>
-        <Input></Input>
-      </Shape>
+      </Wrapper>
+      <Wrapper>
+        <Btn>Log out</Btn>
+        <Btn as="a" href="/">
+          Go home
+        </Btn>
+      </Wrapper>
+      <Wrapper>
+        <StyleBox>
+          <Text>😍</Text>
+        </StyleBox>
+        <StyleBoxPolygon>
+          <Text as="span">🐶</Text>
+        </StyleBoxPolygon>
+        <StyleBoxTrepezoid>
+          <Emoji as="p">👻</Emoji>
+        </StyleBoxTrepezoid>
+        <Emoji as="p">👻</Emoji>
+      </Wrapper>
     </Container>
   );
 }
