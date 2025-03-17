@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
 `;
 
 const Box = styled.div`
@@ -11,8 +11,16 @@ const Box = styled.div`
   height: 100px;
 `;
 
+const Circle = styled(Box)`
+  border-radius: 50px;
+`;
+
 const Text = styled.h1`
   color: white;
+`;
+
+const Input = styled.input.attrs({ required: true, minLength: 10 })`
+  color: tomato;
 `;
 
 function ExecStyle() {
@@ -24,6 +32,10 @@ function ExecStyle() {
       <Box bgcolor="tomato">
         <Text>Hello</Text>
       </Box>
+      <Circle bgcolor="red">
+        <Text>Hello</Text>
+      </Circle>
+      <Input></Input>
     </Container>
   );
 }
