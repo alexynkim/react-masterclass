@@ -1,7 +1,7 @@
-import ExecStyle from "./Routes/ExecStyle";
+import ExerciseStyle from "./Routes/ExerciseStyle";
 
 function App() {
-  return <ExecStyle />;
+  return <ExerciseStyle />;
 }
 
 export default App;
