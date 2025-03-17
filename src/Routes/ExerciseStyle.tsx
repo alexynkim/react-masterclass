@@ -3,8 +3,16 @@ import styled, { keyframes } from "styled-components";
 // #2.1 First Styled component
 
 const Container = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+
   display: flex;
   flex-direction: column;
+  background-color: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Wrapper = styled.div`
@@ -15,8 +23,12 @@ const Wrapper = styled.div`
 
 // #2.2 Adapting and Extending
 
-const Box = styled.div`
-  background-color: ${(p) => p.$bgcolor};
+interface BoxProps {
+  bgColor: string;
+}
+
+const Box = styled.div<BoxProps>`
+  background-color: ${(p) => p.bgColor};
   width: 100px;
   height: 100px;
   margin: 5px;
@@ -31,6 +43,15 @@ const Circle = styled(Box)`
 
 const Text = styled.h2`
   color: white;
+`;
+
+const ThemeText = styled.h1`
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  transform: translate(-20%, 0%);
+  z-index: 10;
+  font-size: 50px;
 `;
 
 // #2.3 'As' and "attributes"
@@ -68,28 +89,28 @@ const rotationAnim = keyframes`
   }
 `;
 
-const slideInAnim = keyframes`
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(100px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-`;
+// const slideInAnim = keyframes`
+//   0% {
+//     transform: translateX(0);
+//   }
+//   50% {
+//     transform: translateX(100px);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// `;
 
 const StyleBox = styled.div`
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
   color: white;
   background-color: darkcyan;
   display: flex;
   justify-content: center;
   align-items: center;
   animation: ${rotationAnim} 2s linear infinite;
-  margin: 50px;
+  margin: 20px;
 `;
 
 const StyleBoxPolygon = styled(StyleBox)`
@@ -124,7 +145,7 @@ const StyleBoxTrepezoid = styled(StyleBox)`
   background-color: darkred;
   clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
   ${Emoji}:hover {
-    font-size: 90px;
+    font-size: 60px;
     &:active {
       opacity: 0;
     }
@@ -137,27 +158,30 @@ function ExerciseStyle() {
   return (
     <Container>
       <Wrapper>
-        <Box $bgcolor="blue">
+        <Box bgColor="blue">
           <Text>Hello</Text>
         </Box>
-        <Box $bgcolor="tomato">
+        <Box bgColor="tomato">
           <Text>Good</Text>
         </Box>
-        <Circle $bgcolor="red">
+        <Circle bgColor="red">
           <Text>Morning</Text>
         </Circle>
       </Wrapper>
+
       <Wrapper>
         <Input></Input>
         <Input></Input>
         <Input></Input>
       </Wrapper>
+
       <Wrapper>
         <Btn>Log out</Btn>
         <Btn as="a" href="/">
           Go home
         </Btn>
       </Wrapper>
+
       <Wrapper>
         <StyleBox>
           <Text>😍</Text>
@@ -170,6 +194,11 @@ function ExerciseStyle() {
         </StyleBoxTrepezoid>
         <Emoji as="p">👻</Emoji>
       </Wrapper>
+
+      <ThemeText>
+        THEME <hr />
+        CENTER
+      </ThemeText>
     </Container>
   );
 }
