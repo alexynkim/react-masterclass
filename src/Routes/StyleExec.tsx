@@ -17,7 +17,8 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: raw;
+  justify-content: left;
+  align-items: center;
   margin: 20px;
 `;
 
@@ -52,6 +53,10 @@ const ThemeText = styled.h1`
   transform: translate(-20%, 0%);
   z-index: 10;
   font-size: 50px;
+
+  &:hover {
+    font-size: 80px;
+  }
 `;
 
 // #2.3 'As' and "attributes"
@@ -154,7 +159,7 @@ const StyleBoxTrepezoid = styled(StyleBox)`
 
 // Main Exported rendering function
 
-function ExerciseStyle() {
+function StyleExec() {
   return (
     <Container>
       <Wrapper>
@@ -203,4 +208,4 @@ function ExerciseStyle() {
   );
 }
 
-export default ExerciseStyle;
+export default StyleExec;

@@ -1,4 +1,5 @@
-import ExerciseStyle from "./Routes/ExerciseStyle";
+import StyleExec from "./Routes/StyleExec";
+import TypeScriptExec from "./Routes/TypeScriptExec";
 import { ThemeProvider } from "styled-components";
 
 const darktheme = {
@@ -14,7 +15,8 @@ const lighttheme = {
 function App() {
   return (
     <ThemeProvider theme={lighttheme}>
-      <ExerciseStyle />
+      {/* <StyleExec /> */}
+      <TypeScriptExec />
     </ThemeProvider>
   );
 }
