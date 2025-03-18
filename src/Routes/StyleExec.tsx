@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-
+import { useTheme } from "../themecontext";
 // #2.1 First Styled component
 
 const Container = styled.div`
@@ -46,12 +46,15 @@ const Text = styled.h2`
   color: white;
 `;
 
-const ThemeText = styled.h1`
+const ThemeContainer = styled.div`
   position: absolute;
   top: 0%;
   right: 0%;
   transform: translate(-20%, 0%);
   z-index: 10;
+`;
+
+const ThemeText = styled.h1`
   font-size: 50px;
 
   &:hover {
@@ -160,6 +163,8 @@ const StyleBoxTrepezoid = styled(StyleBox)`
 // Main Exported rendering function
 
 function StyleExec() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <Container>
       <Wrapper>
@@ -200,10 +205,13 @@ function StyleExec() {
         <Emoji as="p">👻</Emoji>
       </Wrapper>
 
-      <ThemeText>
-        THEME <hr />
-        CENTER
-      </ThemeText>
+      <ThemeContainer>
+        <ThemeText>
+          THEME <hr />
+          CENTER
+        </ThemeText>
+        <Btn onClick={toggleTheme}>Theme Change</Btn>
+      </ThemeContainer>
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 import StyleExec from "./Routes/StyleExec";
 import TypeScriptExec from "./Routes/TypeScriptExec";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import { darktheme, lighttheme } from "./theme";
+import { ThemeContextProvider } from "./themecontext";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,11 +17,11 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <ThemeProvider theme={darktheme}>
+    <ThemeContextProvider>
       <GlobalStyle />
       <StyleExec />
       <TypeScriptExec />
-    </ThemeProvider>
+    </ThemeContextProvider>
   );
 }
 

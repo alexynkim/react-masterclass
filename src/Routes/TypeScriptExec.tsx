@@ -89,7 +89,6 @@ function InputElement() {
 function TypeScriptExec() {
   return (
     <FullWrapper>
-      <HR />
       <Wrapper>
         <Circle $borderColor="black" $bgrColor="tomato" />
         <Circle $Text="New" $bgrColor="teal" />
