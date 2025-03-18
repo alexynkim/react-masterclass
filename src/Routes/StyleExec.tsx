@@ -3,15 +3,15 @@ import styled, { keyframes } from "styled-components";
 // #2.1 First Styled component
 
 const Container = styled.div`
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
+  //position: fixed;
+  //height: 100vh;
+  //width: 100vw;
   top: 0;
   left: 0;
 
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.textColor};
 `;
 
@@ -25,11 +25,11 @@ const Wrapper = styled.div`
 // #2.2 Adapting and Extending
 
 interface BoxProps {
-  bgColor: string;
+  $backColor: string;
 }
 
 const Box = styled.div<BoxProps>`
-  background-color: ${(p) => p.bgColor};
+  background-color: ${(p) => p.$backColor};
   width: 100px;
   height: 100px;
   margin: 5px;
@@ -163,13 +163,13 @@ function StyleExec() {
   return (
     <Container>
       <Wrapper>
-        <Box bgColor="blue">
+        <Box $backColor="blue">
           <Text>Hello</Text>
         </Box>
-        <Box bgColor="tomato">
+        <Box $backColor="tomato">
           <Text>Good</Text>
         </Box>
-        <Circle bgColor="red">
+        <Circle $backColor="red">
           <Text>Morning</Text>
         </Circle>
       </Wrapper>

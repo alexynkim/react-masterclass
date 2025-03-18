@@ -2,15 +2,24 @@ import { useState } from "react";
 import styled from "styled-components";
 
 interface CircleProps {
-  $bgColor: string;
+  $bgrColor: string;
   $borderColor?: string;
   $Text?: string;
 }
 
 interface ContainerProps {
-  $bgColor: string;
+  $bgrColor: string;
   $borderColor: string;
 }
+
+const HR = styled.hr`
+  border: 5px solid ${(p) => p.theme.borderColor};
+`;
+
+const FullWrapper = styled.div`
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,24 +36,24 @@ const Container = styled.div<ContainerProps>`
   align-items: center;
   color: white;
 
-  background-color: ${(props) => props.$bgColor};
+  background-color: ${(props) => props.$bgrColor};
   border-radius: 50px;
   margin: 5px;
   border: 1px dashed ${(props) => props.$borderColor};
 `;
 
-function Circle({ $bgColor, $borderColor, $Text }: CircleProps) {
+function Circle({ $bgrColor, $borderColor, $Text }: CircleProps) {
   const [counter, setCounter] = useState(0);
 
   const onClickHandler = () => {
     setCounter(counter + 1);
   };
 
-  console.log(`Rendering... Circle ${$Text || counter}`);
+  //console.log(`Rendering... Circle ${$Text || counter}`);
   return (
     <Container
-      $bgColor={$bgColor}
-      $borderColor={$borderColor ?? $bgColor}
+      $bgrColor={$bgrColor}
+      $borderColor={$borderColor ?? $bgrColor}
       onClick={$Text ? () => {} : onClickHandler}
     >
       {$Text || counter}
@@ -55,21 +64,19 @@ function Circle({ $bgColor, $borderColor, $Text }: CircleProps) {
 function InputElement() {
   const [values, setValue] = useState("");
   const onChangeHendler = (event: React.FormEvent<HTMLInputElement>) => {
-    const copyEvent = Object.assign({}, event);
     const {
       currentTarget: { value },
     } = event;
     setValue(value);
-    console.log(copyEvent);
   };
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(event.currentTarget.value);
     event.currentTarget.value = "";
+    console.log(values);
   };
 
-  console.log(`Rendering... InputElement ${values}`);
+  //  console.log(`Rendering... InputElement ${values}`);
   return (
     <div>
       <form onSubmit={onSubmitHandler}>
@@ -81,15 +88,16 @@ function InputElement() {
 
 function TypeScriptExec() {
   return (
-    <div>
+    <FullWrapper>
+      <HR />
       <Wrapper>
-        <Circle $borderColor="black" $bgColor="tomato" />
-        <Circle $Text="New" $bgColor="teal" />
+        <Circle $borderColor="black" $bgrColor="tomato" />
+        <Circle $Text="New" $bgrColor="teal" />
       </Wrapper>
       <Wrapper>
         <InputElement />
       </Wrapper>
-    </div>
+    </FullWrapper>
   );
 }
 
