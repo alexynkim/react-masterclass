@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.js": "/react-masterclass/static/js/main.a3d2fc7d.js",
+    "main.js": "/react-masterclass/static/js/main.ea714a08.js",
+    "static/media/bgImg.jpg": "/react-masterclass/static/media/bgImg.7360c575d064520468bc.jpg",
     "index.html": "/react-masterclass/index.html",
-    "main.a3d2fc7d.js.map": "/react-masterclass/static/js/main.a3d2fc7d.js.map"
+    "main.ea714a08.js.map": "/react-masterclass/static/js/main.ea714a08.js.map"
   },
   "entrypoints": [
-    "static/js/main.a3d2fc7d.js"
+    "static/js/main.ea714a08.js"
   ]
 }
