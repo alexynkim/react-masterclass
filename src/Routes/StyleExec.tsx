@@ -1,18 +1,22 @@
 import styled, { keyframes } from "styled-components";
 import { useTheme } from "../themecontext";
+import bgImg from "./bgImg.jpg";
+
 // #2.1 First Styled component
 
 const Container = styled.div`
-  //position: fixed;
-  //height: 100vh;
-  //width: 100vw;
-  top: 0;
-  left: 0;
-
+  position: relative;
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
-  background-color: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textColor};
+  justify-content: space-between;
+  padding-top: 85px;
+  //background-color: ${(props) => props.theme.bgColor};
+  //color: ${(props) => props.theme.textColor};
+  background-image: url(${bgImg});
+  background-size: cover; /* 이미지가 요소를 꽉 채우도록 설정 */
+  background-repeat: no-repeat; /* 이미지 반복 방지 */
+  background-position: center; /* 이미지 중앙 정렬 */
 `;
 
 const Wrapper = styled.div`
@@ -47,11 +51,7 @@ const Text = styled.h2`
 `;
 
 const ThemeContainer = styled.div`
-  position: absolute;
-  top: 0%;
-  right: 0%;
   transform: translate(-20%, 0%);
-  z-index: 10;
 `;
 
 const ThemeText = styled.h1`
@@ -165,46 +165,48 @@ const StyleBoxTrepezoid = styled(StyleBox)`
 function StyleExec() {
   const { theme, toggleTheme } = useTheme();
 
+  console.log(theme);
   return (
     <Container>
-      <Wrapper>
-        <Box $backColor="blue">
-          <Text>Hello</Text>
-        </Box>
-        <Box $backColor="tomato">
-          <Text>Good</Text>
-        </Box>
-        <Circle $backColor="red">
-          <Text>Morning</Text>
-        </Circle>
-      </Wrapper>
+      <div>
+        <Wrapper>
+          <Box $backColor="blue">
+            <Text>Hello</Text>
+          </Box>
+          <Box $backColor="tomato">
+            <Text>Good</Text>
+          </Box>
+          <Circle $backColor="red">
+            <Text>Morning</Text>
+          </Circle>
+        </Wrapper>
 
-      <Wrapper>
-        <Input></Input>
-        <Input></Input>
-        <Input></Input>
-      </Wrapper>
+        <Wrapper>
+          <Input></Input>
+          <Input></Input>
+          <Input></Input>
+        </Wrapper>
 
-      <Wrapper>
-        <Btn>Log out</Btn>
-        <Btn as="a" href="/">
-          Go home
-        </Btn>
-      </Wrapper>
+        <Wrapper>
+          <Btn>Log out</Btn>
+          <Btn as="a" href="/">
+            Go home
+          </Btn>
+        </Wrapper>
 
-      <Wrapper>
-        <StyleBox>
-          <Text>😍</Text>
-        </StyleBox>
-        <StyleBoxPolygon>
-          <Text as="span">🐶</Text>
-        </StyleBoxPolygon>
-        <StyleBoxTrepezoid>
+        <Wrapper>
+          <StyleBox>
+            <Text>😍</Text>
+          </StyleBox>
+          <StyleBoxPolygon>
+            <Text as="span">🐶</Text>
+          </StyleBoxPolygon>
+          <StyleBoxTrepezoid>
+            <Emoji as="p">👻</Emoji>
+          </StyleBoxTrepezoid>
           <Emoji as="p">👻</Emoji>
-        </StyleBoxTrepezoid>
-        <Emoji as="p">👻</Emoji>
-      </Wrapper>
-
+        </Wrapper>
+      </div>
       <ThemeContainer>
         <ThemeText>
           THEME <hr />

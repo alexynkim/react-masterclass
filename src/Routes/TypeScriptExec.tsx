@@ -12,10 +12,6 @@ interface ContainerProps {
   $borderColor: string;
 }
 
-const HR = styled.hr`
-  border: 5px solid ${(p) => p.theme.borderColor};
-`;
-
 const FullWrapper = styled.div`
   background-color: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.textColor};
@@ -26,6 +22,7 @@ const Wrapper = styled.div`
   justify-content: left;
   align-items: center;
   margin: 10px;
+  padding-top: 85px;
 `;
 
 const Container = styled.div<ContainerProps>`
