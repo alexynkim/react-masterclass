@@ -76,7 +76,7 @@ const Description = styled.p`
 const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 25px 0px;
+  margin: 25px 0px 5px 0;
   gap: 10px;
 `;
 

@@ -28,6 +28,21 @@ const Overview = styled.div`
   gap: 10px;
 `;
 
+const OverviewItem = styled.div`
+  //flex: 0 0 48%; /* 각 요소가 전체 너비의 48% 차지하도록 설정 (2개씩 배치) */
+  //height: 60px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  span:first-child {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+
 interface IPriceData {
   id: string;
   name: string;
@@ -60,22 +75,6 @@ interface IPriceData {
     };
   };
 }
-
-const OverviewItem = styled.div`
-  //flex: 0 0 48%; /* 각 요소가 전체 너비의 48% 차지하도록 설정 (2개씩 배치) */
-  //height: 60px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  align-items: center;
-  width: 33%;
-  span:first-child {
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
-`;
 
 interface PriceProps {
   coinId: string;
