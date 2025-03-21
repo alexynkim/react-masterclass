@@ -84,6 +84,9 @@ const Header: React.FC = () => {
         <Writer>by 니꼬쌤</Writer>
       </LogoContainer>
       <MenuContainer>
+        <NavButton as="button" to="#about" onClick={toggleTheme}>
+          Theme
+        </NavButton>
         <NavLink to="" relative="route">
           Home
         </NavLink>
@@ -102,10 +105,6 @@ const Header: React.FC = () => {
         >
           Challenge
         </NavLink>
-
-        <NavButton as="button" to="#about" onClick={toggleTheme}>
-          Theme
-        </NavButton>
       </MenuContainer>
     </HeaderConatiner>
   );
