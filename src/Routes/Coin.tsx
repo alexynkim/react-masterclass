@@ -1,87 +1,34 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useMatch, Outlet } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinInfo, fetchCoinPrice } from "./apifetch";
+import { Routes, Route } from "react-router";
 
 interface CoinParams {
   coinId: string;
   [key: string]: string | undefined;
 }
 
-//========================================================
-//Old styled components
-//========================================================
-// const Container = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   margin: 50px 10px;
-// `;
+const Container = styled.div`
+  position: relative;
+  padding: 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
-// const Header = styled.div`
-//   display: flex;
-//   align-items: center;
-//   padding: 20px;
-// `;
-
-// const Title = styled.h1`
-//   font-size: 30px;
-//   display: flex;
-//   align-items: center;
-//   gap: 20px;
-// `;
-
-// const LoadingText = styled.div`
-//   font-size: 25px;
-//   margin: 50px;
-// `;
-
-// const Img = styled.img`
-//   width: 80px;
-//   height: 80px;
-// `;
-
-// const Infocontainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   max-width: 500px;
-// `;
-
-// const InfoText = styled.p`
-//   font-size: 15px;
-//   text-align: left;
-//   padding: 3px 15px 15px 15px;
-// `;
-
-// const FieldContainer = styled.ul`
-//   margin: 5px;
-// `;
-
-// const Field = styled.li`
-//   margin: 3px;
-//   padding: 10px;
-//   background-color: lightgoldenrodyellow;
-//   display: flex;
-//   align-items: center;
-//   gap: 20px;
-// `;
-
-// const FieldTitle = styled.span`
-//   font-size: 15px;
-//   font-weight: bold;
-//   margin: 10px 3px;
-//   padding: 10px;
-//   width: 150px;
-//   text-align: left;
-//   background-color: lightgray;
-// `;
-//========================================================
-// Nomad Code coding...
-//========================================================
 const Title = styled.h1`
   font-size: 48px;
-  color: ${(props) => props.theme.accentColor};
+  font-weight: bold;
+  color: ${(props) => props.theme.textColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
 `;
 
 const Loader = styled.span`
@@ -89,35 +36,25 @@ const Loader = styled.span`
   display: block;
 `;
 
-const LoadingText = styled.div`
-  font-size: 25px;
-  margin: 50px;
-`;
-
 const Img = styled.img`
-  width: 80px;
-  height: 80px;
-`;
-
-const Container = styled.div`
-  padding: 0px 20px;
-  max-width: 480px;
-  margin: 0 auto;
+  width: 60px;
+  height: 60px;
 `;
 
 const Header = styled.header`
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: auto;
 `;
 
 const Overview = styled.div`
   display: flex;
-  justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: space-evenly;
+  background-color: ${(props) => props.theme.bgHovorColor};
+  color: ${(props) => props.theme.textHoverColor};
   padding: 10px 20px;
   border-radius: 10px;
+  div:first-child {
+    font-weight: bold;
+  }
 `;
 const OverviewItem = styled.div`
   display: flex;
@@ -133,6 +70,7 @@ const OverviewItem = styled.div`
 `;
 const Description = styled.p`
   margin: 20px 0px;
+  line-height: 1.8;
 `;
 
 const Tabs = styled.div`
@@ -142,22 +80,35 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 
-const Tab = styled.span<{ isActive: boolean }>`
+const Tab = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) =>
+    props.isActive ? "darkcyan" : props.theme.bgHovorColor};
   border-radius: 10px;
-  color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+
   a {
     padding: 7px 0px;
     display: block;
+    color: ${(props) =>
+      props.isActive ? "white" : props.theme.textHoverColor};
+    font-weight: ${(props) => (props.isActive ? 800 : 400)};
   }
 `;
 
-//========================================================
+const BackBtn = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 20px;
+  background-color: transparent;
+  color: ${(props) => props.theme.textColor};
+  border: none;
+`;
 
 interface IInfoData {
   id: string;
@@ -222,6 +173,10 @@ interface IPriceData {
 function Coin() {
   const { coinId } = useParams<CoinParams>();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const priceMatch = useMatch(`/Coins/${coinId}/price`);
+  const chartMatch = useMatch(`/Coins/${coinId}/chart`);
 
   const { data: coinInfo, isLoading: isInfoloading } = useQuery<IInfoData>({
     queryKey: ["QCoinInfo", coinId],
@@ -235,8 +190,13 @@ function Coin() {
 
   const loading = isInfoloading || isPriceloading;
 
+  const OnClickHandler = () => {
+    navigate(-1);
+  };
+
   return (
     <Container>
+      <BackBtn onClick={() => navigate(-1)}>{`< BACK`}</BackBtn>
       <Header>
         <Title>
           <Img
@@ -252,16 +212,12 @@ function Coin() {
         <>
           <Overview>
             <OverviewItem>
-              <span>Rank:</span>
-              <span>{coinInfo?.rank}</span>
+              <span>Price:</span>
+              <span>${coinPrice?.quotes.USD.price}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Symbol:</span>
-              <span>${coinInfo?.symbol}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Open Source:</span>
-              <span>{coinInfo?.open_source ? "Yes" : "No"}</span>
+              <span>7D change:</span>
+              <span>{coinPrice?.quotes.USD.percent_change_7d}%</span>
             </OverviewItem>
           </Overview>
           <Description>{coinInfo?.description}</Description>
@@ -276,23 +232,16 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          {/* <Tabs>
+          <Tabs>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
+              <Link to={`chart`}>Chart</Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
+              <Link to={`price`}>Price</Link>
             </Tab>
           </Tabs>
 
-          <Switch>
-            <Route path={`/:coinId/price`}>
-              <Price />
-            </Route>
-            <Route path={`/:coinId/chart`}>
-              <Chart />
-            </Route>
-          </Switch> */}
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>
