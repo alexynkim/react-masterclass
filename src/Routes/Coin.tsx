@@ -1,31 +1,92 @@
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCoinInfo, fetchCoinPrice } from "./apifetch";
 
 interface CoinParams {
   coinId: string;
   [key: string]: string | undefined;
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 50px 10px;
-`;
+//========================================================
+//Old styled components
+//========================================================
+// const Container = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 50px 10px;
+// `;
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 20px;
-`;
+// const Header = styled.div`
+//   display: flex;
+//   align-items: center;
+//   padding: 20px;
+// `;
 
+// const Title = styled.h1`
+//   font-size: 30px;
+//   display: flex;
+//   align-items: center;
+//   gap: 20px;
+// `;
+
+// const LoadingText = styled.div`
+//   font-size: 25px;
+//   margin: 50px;
+// `;
+
+// const Img = styled.img`
+//   width: 80px;
+//   height: 80px;
+// `;
+
+// const Infocontainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   max-width: 500px;
+// `;
+
+// const InfoText = styled.p`
+//   font-size: 15px;
+//   text-align: left;
+//   padding: 3px 15px 15px 15px;
+// `;
+
+// const FieldContainer = styled.ul`
+//   margin: 5px;
+// `;
+
+// const Field = styled.li`
+//   margin: 3px;
+//   padding: 10px;
+//   background-color: lightgoldenrodyellow;
+//   display: flex;
+//   align-items: center;
+//   gap: 20px;
+// `;
+
+// const FieldTitle = styled.span`
+//   font-size: 15px;
+//   font-weight: bold;
+//   margin: 10px 3px;
+//   padding: 10px;
+//   width: 150px;
+//   text-align: left;
+//   background-color: lightgray;
+// `;
+//========================================================
+// Nomad Code coding...
+//========================================================
 const Title = styled.h1`
-  font-size: 30px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  font-size: 48px;
+  color: ${(props) => props.theme.accentColor};
+`;
+
+const Loader = styled.span`
+  text-align: center;
+  display: block;
 `;
 
 const LoadingText = styled.div`
@@ -38,63 +99,65 @@ const Img = styled.img`
   height: 80px;
 `;
 
-const Infocontainer = styled.div`
+const Container = styled.div`
+  padding: 0px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+`;
+
+const Header = styled.header`
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+`;
+const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 500px;
-`;
-
-const InfoText = styled.p`
-  font-size: 15px;
-  text-align: left;
-  padding: 3px 15px 15px 15px;
-`;
-
-const FieldContainer = styled.ul`
-  margin: 5px;
-`;
-
-const Field = styled.li`
-  margin: 3px;
-  padding: 10px;
-  background-color: lightgoldenrodyellow;
-  display: flex;
   align-items: center;
-  gap: 20px;
+  width: 33%;
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+const Description = styled.p`
+  margin: 20px 0px;
 `;
 
-const FieldTitle = styled.span`
-  font-size: 15px;
-  font-weight: bold;
-  margin: 10px 3px;
-  padding: 10px;
-  width: 150px;
-  text-align: left;
-  background-color: lightgray;
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0px;
+  gap: 10px;
 `;
 
-interface CoinInfoProps {
-  description: string;
-  first_data_at: string;
-  id: string;
-  name: string;
-  symbol: string;
-}
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
+  a {
+    padding: 7px 0px;
+    display: block;
+  }
+`;
 
-interface TickerDataProps {
-  quotes: {
-    [key: string]: {
-      price: number;
-      market_cap: number;
-      percent_change_7d: number;
-    };
-  };
-}
-
-interface CoinDataProps {
-  info: CoinInfoProps;
-  ticker: TickerDataProps;
-}
+//========================================================
 
 interface IInfoData {
   id: string;
@@ -156,38 +219,22 @@ interface IPriceData {
   };
 }
 
-interface ICoinData {
-  info: IInfoData;
-  price: IPriceData;
-}
-
 function Coin() {
-  const [coin, setCoin] = useState<ICoinData>();
-  const [loading, setLoading] = useState(true);
   const { coinId } = useParams<CoinParams>();
   const location = useLocation();
 
-  useEffect(() => {
-    (async () => {
-      const infoData = await (
-        await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-      ).json();
+  const { data: coinInfo, isLoading: isInfoloading } = useQuery<IInfoData>({
+    queryKey: ["QCoinInfo", coinId],
+    queryFn: () => fetchCoinInfo(coinId!),
+  });
 
-      const priceData = await (
-        await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-      ).json();
+  const { data: coinPrice, isLoading: isPriceloading } = useQuery<IPriceData>({
+    queryKey: ["QCoinPrice", coinId],
+    queryFn: () => fetchCoinPrice(coinId!),
+  });
 
-      const Infos: IInfoData = infoData;
-      const Prices: IPriceData = priceData;
+  const loading = isInfoloading || isPriceloading;
 
-      const coinData: ICoinData = { info: Infos, price: Prices };
-
-      setCoin(coinData);
-      setLoading(false);
-    })();
-  }, [coinId]);
-
-  console.log(location.state);
   return (
     <Container>
       <Header>
@@ -196,38 +243,57 @@ function Coin() {
             src={`https://static.coinpaprika.com/coin/${coinId}/logo.png`}
             alt=""
           ></Img>
-          {location.state ?? coin?.info.name}
+          {location.state ?? coinInfo?.name}
         </Title>
       </Header>
       {loading ? (
-        <LoadingText>Loading...</LoadingText>
+        <Loader>Loading...</Loader>
       ) : (
-        <Infocontainer>
-          <span> ✨ Description: </span>
-          <InfoText>{coin?.info.description}</InfoText>
-          <FieldContainer>
-            <Field>
-              <FieldTitle>▶️ Name:</FieldTitle>
-              <InfoText>{coin?.info.name}</InfoText>
-            </Field>
-            <Field>
-              <FieldTitle>▶️ First Date:</FieldTitle>
-              <InfoText>{coin?.info.first_data_at}</InfoText>
-            </Field>
-            <Field>
-              <FieldTitle>▶️ Symbol:</FieldTitle>
-              <InfoText>{coin?.info.symbol}</InfoText>
-            </Field>
-            <Field>
-              <FieldTitle>▶️ Price:</FieldTitle>
-              <InfoText>${coin?.price.quotes.USD.price}</InfoText>
-            </Field>
-            <Field>
-              <FieldTitle>▶️ Market cap:</FieldTitle>
-              <InfoText>${coin?.price.quotes.USD.market_cap}</InfoText>
-            </Field>
-          </FieldContainer>
-        </Infocontainer>
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{coinInfo?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>${coinInfo?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{coinInfo?.open_source ? "Yes" : "No"}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{coinInfo?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply:</span>
+              <span>{coinPrice?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{coinPrice?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+
+          {/* <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
+
+          <Switch>
+            <Route path={`/:coinId/price`}>
+              <Price />
+            </Route>
+            <Route path={`/:coinId/chart`}>
+              <Chart />
+            </Route>
+          </Switch> */}
+        </>
       )}
     </Container>
   );

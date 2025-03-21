@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchAllCoins } from "./apifetch";
 
 interface ICoins {
@@ -69,7 +69,7 @@ const LoadingText = styled.div`
 
 function Coins() {
   const { data: coins, isLoading: isCoinLoading } = useQuery<ICoins[]>({
-    queryKey: "QALLCOIN",
+    queryKey: ["QAllCoins"],
     queryFn: fetchAllCoins,
   });
 

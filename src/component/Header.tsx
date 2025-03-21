@@ -22,10 +22,11 @@ const LogoContainer = styled.div`
   justify-content: center;
   align-items: end;
   gap: 3px;
+  margin-right: 20px;
 `;
 
 const Logo = styled(Link)`
-  text-align: end;
+  text-align: start;
   font-size: 30px;
   font-weight: 600;
   color: ${(props) => props.theme.textColor};
@@ -40,15 +41,15 @@ const Writer = styled.div`
 const MenuContainer = styled.nav`
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: space-evenly;
 `;
 
 const NavLink = styled(Link)`
-  //text-decoration: none;
   color: ${(props) => props.theme.textMenuColor};
   font-size: 16px;
   font-weight: 400;
   transition: color 0.3s;
+  margin: 0px 8px;
   &:hover {
     color: ${(props) => props.theme.textColor};
     font-weight: bold;
@@ -61,6 +62,7 @@ const NavButton = styled(Link)`
   font-size: 16px;
   font-weight: 600;
   padding: 8px 16px;
+  margin: 0 px 8px;
   border: 2px solid ${(props) => props.theme.textColor};
   transition: background-color 0.3s, color 0.3s;
 

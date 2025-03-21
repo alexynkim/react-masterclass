@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import { ThemeContextProvider } from "./themecontext";
 import { Outlet } from "react-router-dom";
 import Header from "./component/Header";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -64,17 +63,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const queryClient = new QueryClient();
-
 function Root() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeContextProvider>
-        <GlobalStyle />
-        <Header />
-        <Outlet />
-      </ThemeContextProvider>
-    </QueryClientProvider>
+    <ThemeContextProvider>
+      <GlobalStyle />
+      <Header />
+      <Outlet />
+    </ThemeContextProvider>
   );
 }
 
