@@ -5,7 +5,14 @@
   </head>
   <body>
     <script>
-      window.location.replace("/react-masterclass" + window.location.pathname);
+      var path = window.location.pathname;
+
+      // "react-masterclass"가 중복되지 않도록 조정
+      if (!path.startsWith("/react-masterclass")) {
+        window.location.replace("/react-masterclass" + path);
+      } else {
+        window.location.replace("/react-masterclass/");
+      }
     </script>
   </body>
 </html>
