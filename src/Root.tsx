@@ -2,9 +2,10 @@ import { createGlobalStyle } from "styled-components";
 import { ThemeContextProvider } from "./themecontext";
 import { Outlet } from "react-router-dom";
 import Header from "./component/Header";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
+
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
@@ -63,13 +64,17 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const queryClient = new QueryClient();
+
 function Root() {
   return (
-    <ThemeContextProvider>
-      <GlobalStyle />
-      <Header />
-      <Outlet />
-    </ThemeContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeContextProvider>
+        <GlobalStyle />
+        <Header />
+        <Outlet />
+      </ThemeContextProvider>
+    </QueryClientProvider>
   );
 }
 

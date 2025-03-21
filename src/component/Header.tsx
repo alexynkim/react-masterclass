@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../themecontext";
 
 const HeaderConatiner = styled.header`
-  position: fixed;
   top: 0%;
   left: 0%;
   width: 100vw;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
   background-color: ${(props) => props.theme.bgColor};
@@ -19,18 +18,21 @@ const HeaderConatiner = styled.header`
 
 const LogoContainer = styled.div`
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  gap: 3px;
 `;
 
 const Logo = styled(Link)`
-  //text-decoration: none;
+  text-align: end;
   font-size: 30px;
   font-weight: 600;
   color: ${(props) => props.theme.textColor};
 `;
 
 const Writer = styled.div`
+  text-align: end;
   font-size: 12px;
   color: ${(props) => props.theme.textColor};
 `;
@@ -54,7 +56,6 @@ const NavLink = styled(Link)`
 `;
 
 const NavButton = styled(Link)`
-  //text-decoration: none;
   background-color: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.textColor};
   font-size: 16px;

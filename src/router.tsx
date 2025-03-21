@@ -7,35 +7,38 @@ import Coin from "./Routes/Coin";
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./Root";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "Coins",
+          element: <Coins />,
+        },
+        {
+          path: "Coins/:coinId",
+          element: <Coin />,
+        },
+        {
+          path: "Style",
+          element: <StyleExec />,
+        },
+        {
+          path: "TypeScript",
+          element: <TypeScriptExec />,
+        },
+      ],
+    },
+  ],
   {
-    path: "/react-masterclass",
-    element: <Root />,
-    children: [
-      {
-        path: "/react-masterclass",
-        element: <Home />,
-      },
-      {
-        path: "Style",
-        element: <StyleExec />,
-      },
-      {
-        path: "TypeScript",
-        element: <TypeScriptExec />,
-      },
-      {
-        path: "Coins",
-        element: <Coins />,
-        children: [
-          {
-            path: ":coinId",
-            element: <Coin />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+    basename: "/react-masterclass",
+  }
+);
 
 export default router;

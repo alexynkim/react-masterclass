@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   justify-content: left;
   align-items: center;
   margin: 10px;
-  padding-top: 85px;
+  /* padding-top: 85px; */
 `;
 
 const Container = styled.div<ContainerProps>`

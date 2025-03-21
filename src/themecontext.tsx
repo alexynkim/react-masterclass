@@ -2,20 +2,22 @@ import { createContext, useContext, useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
 
 const darkTheme: DefaultTheme = {
-  textColor: "white",
-  bgColor: "black",
+  mode: true,
+  textColor: "#D4F1F4",
+  bgColor: "#05445E",
   textMenuColor: "#bbb",
-  bgHovorColor: "lightgreen",
-  textHoverColor: "black",
+  bgHovorColor: "#75E6DA",
+  textHoverColor: "#189AB4",
   borderShadow: "rgba(255, 255, 255, 0.5)",
 };
 
 const lightTheme: DefaultTheme = {
-  textColor: "black",
-  bgColor: "white",
+  mode: false,
+  textColor: "#05445E",
+  bgColor: "#D4F1F4",
   textMenuColor: "#555",
-  bgHovorColor: "green",
-  textHoverColor: "white",
+  bgHovorColor: "#189AB4",
+  textHoverColor: "#75E6DA",
   borderShadow: "rgba(0, 0, 0, 0.2)",
 };
 

@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useTheme } from "../themecontext";
-import bgImg from "./bgImg.jpg";
+import bgImg from "./bgImgdark.jpg";
 
 // #2.1 First Styled component
 
@@ -10,7 +10,7 @@ const Container = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  padding-top: 85px;
+  /* padding-top: 85px; */
   //background-color: ${(props) => props.theme.bgColor};
   //color: ${(props) => props.theme.textColor};
   background-image: url(${bgImg});
