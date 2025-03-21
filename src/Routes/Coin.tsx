@@ -190,13 +190,9 @@ function Coin() {
 
   const loading = isInfoloading || isPriceloading;
 
-  const OnClickHandler = () => {
-    navigate(-1);
-  };
-
   return (
     <Container>
-      <BackBtn onClick={() => navigate(-1)}>{`< BACK`}</BackBtn>
+      <BackBtn onClick={() => navigate("/Coins")}>{`< BACK`}</BackBtn>
       <Header>
         <Title>
           <Img
