@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="refresh" content="0; url=/react-masterclass/" />
+  </head>
+  <body>
+    <script>
+      var path = window.location.pathname;
+
+      // "react-masterclass"가 중복되지 않도록 조정
+      if (!path.startsWith("/react-masterclass")) {
+        window.location.replace("/react-masterclass" + path);
+      } else {
+        window.location.replace("/react-masterclass/");
+      }
+    </script>
+  </body>
+</html>

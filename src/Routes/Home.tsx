@@ -2,7 +2,7 @@ import styled from "styled-components";
 import bgImgdark from "./bgImgdark.jpg";
 import bgImglight from "./bgImglight.jpg";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Container = styled.div`
   position: fixed;
@@ -19,6 +19,33 @@ const Container = styled.div`
   background-position: center; /* 이미지 중앙 정렬 */
 `;
 
+const ImageContainer = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 10%;
+
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center; /* 이미지 중앙 정렬 */
+  align-items: center;
+`;
+
+const ProjectImg = styled.img`
+  width: 20vw;
+  height: auto;
+  max-width: 100%;
+
+  border-radius: 10px;
+  border: 4px solid #ccc;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3),
+    -4px -4px 10px rgba(255, 255, 255, 0.5);
+`;
+
+const LINK = styled(Link)`
+  display: block;
+`;
+
 const Title = styled.div`
   position: absolute;
   top: 60%;
@@ -27,6 +54,7 @@ const Title = styled.div`
   font-weight: bold;
   color: ${(props) => props.theme.textColor};
 `;
+
 function Home() {
   const navigate = useNavigate();
   const [initialized, setInitialized] = useState(false);
@@ -54,6 +82,11 @@ function Home() {
 
   return (
     <Container>
+      <ImageContainer>
+        <LINK to="Coins">
+          <ProjectImg src={require("./crypto.jpg")}></ProjectImg>
+        </LINK>
+      </ImageContainer>
       <Title>
         Welcome to
         <hr /> React Master Class
