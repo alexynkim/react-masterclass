@@ -4,8 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 440px;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;

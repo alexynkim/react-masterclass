@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCoinHistory } from "../../apifetch";
 import ApexChart from "react-apexcharts";
 import { useOutletContext } from "react-router-dom";
-import { useTheme } from "../../themeContext";
+//import { useTheme } from "../../themeContext";
 import { useThemeValue } from "../../themeRecoil";
 import styled from "styled-components";
 import { useState } from "react";

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 //import { useTheme } from "../themeContext";
-import { useThemeAtom } from "../themeRecoil";
+import { useThemeSetValue } from "../themeRecoil";
 
 const HeaderConatiner = styled.header`
   top: 0%;
@@ -20,23 +20,23 @@ const HeaderConatiner = styled.header`
 `;
 
 const LogoContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  align-items: end;
+  align-items: center;
   gap: 3px;
   margin-right: 20px;
 `;
 
 const Logo = styled(Link)`
-  text-align: start;
+  //text-align: start;
   font-size: 30px;
   font-weight: 600;
   color: ${(props) => props.theme.textColor};
 `;
 
 const Writer = styled.div`
-  text-align: end;
+  //text-align: start;
   font-size: 12px;
   color: ${(props) => props.theme.textColor};
 `;
@@ -66,7 +66,7 @@ const NavButton = styled(Link)`
   font-size: 16px;
   font-weight: 600;
   padding: 8px 16px;
-  margin: 0 px 8px;
+  margin: 10px 40px 10px 10px;
   border: 2px solid ${(props) => props.theme.textColor};
   transition: background-color 0.3s, color 0.3s;
 
@@ -74,43 +74,48 @@ const NavButton = styled(Link)`
     border: 2px solid ${(props) => props.theme.bgHovorColor};
     background-color: ${(props) => props.theme.bgHovorColor};
     color: ${(props) => props.theme.textHoverColor};
+    cursor: pointer;
   }
 `;
 
 const Header: React.FC = () => {
   //const { toggleTheme } = useTheme();
-  const { theme, toggleTheme } = useThemeAtom();
-  console.log(theme);
+  const toggleTheme = useThemeSetValue();
+
   return (
     <HeaderConatiner>
       <LogoContainer>
-        <Logo to="" relative="route">
-          REACT MASTERCLASS
-        </Logo>
+        <div>
+          <Logo to="" relative="route">
+            REACT MASTERCLASS
+          </Logo>
+        </div>
         <Writer>by 니꼬쌤</Writer>
       </LogoContainer>
       <MenuContainer>
         <NavButton as="button" to="#about" onClick={toggleTheme}>
           Theme
         </NavButton>
-        <NavLink to="" relative="route">
-          Home
-        </NavLink>
-        <NavLink to="Coins">Crypto</NavLink>
-        <NavLink
-          to="https://nomadcoders.co/react-masterclass/lobby"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Course
-        </NavLink>
-        <NavLink
-          to="https://nomadcoders.co/c/reactjs-challenge/lobby"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Challenge
-        </NavLink>
+        <MenuContainer>
+          <NavLink to="" relative="route">
+            Home
+          </NavLink>
+          <NavLink to="Coins">Crypto</NavLink>
+          <NavLink
+            to="https://nomadcoders.co/react-masterclass/lobby"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Course
+          </NavLink>
+          <NavLink
+            to="https://nomadcoders.co/c/reactjs-challenge/lobby"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Challenge
+          </NavLink>
+        </MenuContainer>
       </MenuContainer>
     </HeaderConatiner>
   );

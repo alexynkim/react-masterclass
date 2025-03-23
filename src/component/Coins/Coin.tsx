@@ -12,7 +12,7 @@ interface CoinParams {
 
 const Container = styled.div`
   position: relative;
-  padding: 20px;
+  //padding: 20px;
   max-width: 480px;
   margin: 0 auto;
   display: flex;
@@ -43,6 +43,7 @@ const Img = styled.img`
 
 const Header = styled.header`
   height: auto;
+  margin: 50px 0px 0px 0px;
 `;
 
 const Overview = styled.div`
@@ -102,12 +103,15 @@ const Tab = styled.span.withConfig({
 
 const BackBtn = styled.button`
   position: absolute;
-  top: 10px;
-  left: 20px;
+  top: 20px;
+  left: 10px;
   font-size: 20px;
   background-color: transparent;
   color: ${(props) => props.theme.textColor};
   border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 interface IInfoData {
