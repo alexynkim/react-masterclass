@@ -1,5 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import { ThemeContextProvider } from "./themecontext";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+//import { ThemeContextProvider } from "./themeContext";
+import { useThemeValue } from "./themeRecoil";
 import { Outlet } from "react-router-dom";
 import Header from "./component/Header";
 
@@ -63,13 +64,25 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// function Root() {
+
+//   return (
+//     <ThemeContextProvider>
+//       <GlobalStyle />
+//       <Header />
+//       <Outlet />
+//     </ThemeContextProvider>
+//   );
+// }
+
 function Root() {
+  const theme = useThemeValue();
   return (
-    <ThemeContextProvider>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Header />
       <Outlet />
-    </ThemeContextProvider>
+    </ThemeProvider>
   );
 }
 

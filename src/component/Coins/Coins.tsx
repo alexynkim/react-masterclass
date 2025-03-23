@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllCoins } from "./apifetch";
+import { fetchAllCoins } from "../../apifetch";
 
 interface ICoins {
   id: string;

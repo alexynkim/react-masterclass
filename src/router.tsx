@@ -1,10 +1,10 @@
-import Home from "./Routes/Home";
-import StyleExec from "./Routes/StyleExec";
-import TypeScriptExec from "./Routes/TypeScriptExec";
-import Coins from "./Routes/Coins";
-import Coin from "./Routes/Coin";
-import Chart from "./Routes/Chart";
-import Price from "./Routes/Price";
+import Home from "./component/Home";
+import StyleExec from "./component/Exercise/StyleExec";
+import TypeScriptExec from "./component/Exercise/TypeScriptExec";
+import Coins from "./component/Coins/Coins";
+import Coin from "./component/Coins/Coin";
+import Chart from "./component/Coins/Chart";
+import Price from "./component/Coins/Price";
 
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./Root";

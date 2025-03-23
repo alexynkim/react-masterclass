@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import bgImgdark from "./bgImgdark.jpg";
-import bgImglight from "./bgImglight.jpg";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import cryptoImg from "../images/crypto.jpg";
 
 const Container = styled.div`
   position: fixed;
@@ -11,9 +10,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding-top: 115px; */
-  background-image: ${(props) =>
-    props.theme.mode ? `url(${bgImgdark})` : `url(${bgImglight})`};
+  background-image: url(${(props) => props.theme.backgroundImage});
   background-size: cover; /* 이미지가 요소를 꽉 채우도록 설정 */
   background-repeat: no-repeat; /* 이미지 반복 방지 */
   background-position: center; /* 이미지 중앙 정렬 */
@@ -32,7 +29,7 @@ const ImageContainer = styled.div`
 `;
 
 const ProjectImg = styled.img`
-  width: 20vw;
+  width: 30vw;
   height: auto;
   max-width: 100%;
 
@@ -63,7 +60,7 @@ function Home() {
     const hasVisited = sessionStorage.getItem("hasVisited");
 
     if (!hasVisited) {
-      navigate("Coins");
+      //navigate("Coins");
       sessionStorage.setItem("hasVisited", "true");
       console.log("Go to coins");
     } else {
@@ -84,7 +81,7 @@ function Home() {
     <Container>
       <ImageContainer>
         <LINK to="Coins">
-          <ProjectImg src={require("./crypto.jpg")}></ProjectImg>
+          <ProjectImg src={cryptoImg}></ProjectImg>
         </LINK>
       </ImageContainer>
       <Title>

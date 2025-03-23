@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { ThemeProvider, DefaultTheme } from "styled-components";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 
 import bgImgdark from "./images/bgImgdark.jpg";
 import bgImglight from "./images/bgImglight.jpg";
@@ -28,34 +29,26 @@ const lightTheme: DefaultTheme = {
   backgroundImage: bgImglight,
 };
 
-type ThemeContextType = {
-  isDark: boolean;
+interface ThemeInterface {
+  theme: DefaultTheme;
   toggleTheme: () => void;
-};
+}
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const themeState = atom({
+  key: "ThemeState",
+  default: lightTheme,
+});
 
-export const useTheme = (): ThemeContextType => {
-  const context = useContext(ThemeContext);
-  if (!context) throw new Error("useTheme must be used within ThemeProvider");
-  return context;
-};
-
-export const ThemeContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [isDark, setTheme] = useState(true);
-  const theme = isDark ? darkTheme : lightTheme;
+export const useThemeAtom = (): ThemeInterface => {
+  const [theme, setTheme] = useRecoilState(themeState);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => !prevTheme);
+    setTheme((prevTheme) => (prevTheme.mode ? lightTheme : darkTheme));
   };
 
-  return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ThemeContext.Provider>
-  );
+  return { theme, toggleTheme };
+};
+
+export const useThemeValue = (): DefaultTheme => {
+  return useRecoilValue(themeState);
 };

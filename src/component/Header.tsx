@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useTheme } from "../themecontext";
+//import { useTheme } from "../themeContext";
+import { useThemeAtom } from "../themeRecoil";
 
 const HeaderConatiner = styled.header`
   top: 0%;
   left: 0%;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,6 +16,7 @@ const HeaderConatiner = styled.header`
   background-color: ${(props) => props.theme.bgColor};
   box-shadow: 0 2px 4px ${(props) => props.theme.borderShadow};
   z-index: 10;
+  overflow: hidden;
 `;
 
 const LogoContainer = styled.div`
@@ -40,6 +43,7 @@ const Writer = styled.div`
 
 const MenuContainer = styled.nav`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
 `;
@@ -74,7 +78,9 @@ const NavButton = styled(Link)`
 `;
 
 const Header: React.FC = () => {
-  const { toggleTheme } = useTheme();
+  //const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeAtom();
+  console.log(theme);
   return (
     <HeaderConatiner>
       <LogoContainer>

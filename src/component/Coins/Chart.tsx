@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCoinHistory } from "./apifetch";
+import { fetchCoinHistory } from "../../apifetch";
 import ApexChart from "react-apexcharts";
 import { useOutletContext } from "react-router-dom";
-import { useTheme } from "../themecontext";
+import { useTheme } from "../../themeContext";
+import { useThemeValue } from "../../themeRecoil";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -33,7 +34,8 @@ interface ChartProps {
 }
 function Chart() {
   const [isLine, setIsLine] = useState(false);
-  const { theme } = useTheme();
+  //const { isDark } = useTheme();
+  const theme = useThemeValue();
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, error, data } = useQuery<IHistorical[]>({
     queryKey: ["ohlcv", coinId],
@@ -81,6 +83,7 @@ function Chart() {
             series={isLine ? lineSeries : candleSeries}
             options={{
               theme: {
+                //mode: isDark ? "dark" : "light",
                 mode: theme.mode ? "dark" : "light",
               },
               chart: {

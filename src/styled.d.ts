@@ -12,5 +12,6 @@ declare module "styled-components" {
     textHoverColor: string;
     borderShadow: string;
     accentColor: string;
+    backgroundImage: string;
   }
 }

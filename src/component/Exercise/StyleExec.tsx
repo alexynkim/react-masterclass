@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { useTheme } from "../themecontext";
-import bgImg from "./bgImgdark.jpg";
+import { useTheme } from "../../themeContext";
 
 // #2.1 First Styled component
 
@@ -10,10 +9,7 @@ const Container = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  /* padding-top: 85px; */
-  //background-color: ${(props) => props.theme.bgColor};
-  //color: ${(props) => props.theme.textColor};
-  background-image: url(${bgImg});
+  background-image: url(${(props) => props.theme.backgroundImage});
   background-size: cover; /* 이미지가 요소를 꽉 채우도록 설정 */
   background-repeat: no-repeat; /* 이미지 반복 방지 */
   background-position: center; /* 이미지 중앙 정렬 */
@@ -163,9 +159,8 @@ const StyleBoxTrepezoid = styled(StyleBox)`
 // Main Exported rendering function
 
 function StyleExec() {
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
-  console.log(theme);
   return (
     <Container>
       <div>

@@ -2,7 +2,7 @@ import { useLocation, useParams, useMatch, Outlet } from "react-router-dom";
 import { Link, useNavigate } from "react-router";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCoinInfo, fetchCoinPrice } from "./apifetch";
+import { fetchCoinInfo, fetchCoinPrice } from "../../apifetch";
 import { Routes, Route } from "react-router";
 
 interface CoinParams {

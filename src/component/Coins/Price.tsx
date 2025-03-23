@@ -1,7 +1,6 @@
-import { fetchCoinPriceToday, fetchCoinPrice } from "./apifetch";
+import { fetchCoinPriceToday, fetchCoinPrice } from "../../apifetch";
 import { useQuery } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
-import { useTheme } from "../themecontext";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -93,7 +92,6 @@ interface ITodayPrice {
 
 function Price() {
   const { coinId } = useOutletContext<PriceProps>();
-  const { theme } = useTheme();
   const { isLoading, error, data } = useQuery<ITodayPrice[]>({
     queryKey: ["today", coinId],
     queryFn: () => fetchCoinPriceToday(coinId),
