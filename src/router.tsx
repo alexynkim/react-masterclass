@@ -5,11 +5,13 @@ import Coins from "./component/Coins/Coins";
 import Coin from "./component/Coins/Coin";
 import Chart from "./component/Coins/Chart";
 import Price from "./component/Coins/Price";
+import TodoList from "./component/TodoList/TodoList";
 
-import { createBrowserRouter } from "react-router-dom";
+//import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Root from "./Root";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       path: "/",
@@ -38,6 +40,10 @@ const router = createBrowserRouter(
           ],
         },
         {
+          path: "TodoList",
+          element: <TodoList />,
+        },
+        {
           path: "Style",
           element: <StyleExec />,
         },
@@ -47,10 +53,10 @@ const router = createBrowserRouter(
         },
       ],
     },
-  ],
-  {
-    basename: "/react-masterclass",
-  }
+  ]
+  // {
+  //   basename: "/react-masterclass",
+  // }
 );
 
 export default router;

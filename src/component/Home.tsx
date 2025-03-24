@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import cryptoImg from "../images/crypto.jpg";
+import todo from "../images/todo.jpg";
 
 const Container = styled.div`
   position: fixed;
@@ -16,20 +17,24 @@ const Container = styled.div`
   background-position: center; /* 이미지 중앙 정렬 */
 `;
 
-const ImageContainer = styled.div`
+const ProjectContainer = styled.div`
   position: absolute;
   top: 20%;
   left: 10%;
+  display: inline-flex;
+`;
 
-  padding: 30px;
+const ImageContainer = styled.div`
+  padding: 10px;
   background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center; /* 이미지 중앙 정렬 */
-  align-items: center;
+
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
 `;
 
 const ProjectImg = styled.img`
-  width: 30vw;
+  width: 20vw;
   height: auto;
   max-width: 100%;
 
@@ -37,6 +42,32 @@ const ProjectImg = styled.img`
   border: 4px solid #ccc;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3),
     -4px -4px 10px rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 1),
+      -4px -4px 10px rgba(255, 255, 255, 0.2);
+  }
+`;
+
+const TooltipText = styled.span`
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  ${ImageContainer}:hover & {
+    visibility: visible;
+    opacity: 1;
+  }
 `;
 
 const LINK = styled(Link)`
@@ -53,37 +84,52 @@ const Title = styled.div`
 `;
 
 function Home() {
-  const navigate = useNavigate();
-  const [initialized, setInitialized] = useState(false);
+  // <---------------------------------------------------------------------------------------------
+  // //This is for re-routing to specific project folder because of SPA polich of GitHub publisher
+  // //Solved with Hashrouter so it does not need anymore.
+  // --------------------------------------------------------------------------------------------->
+  // const navigate = useNavigate();
+  // const [initialized, setInitialized] = useState(false);
 
-  useEffect(() => {
-    const hasVisited = sessionStorage.getItem("hasVisited");
+  // useEffect(() => {
+  //   const hasVisited = sessionStorage.getItem("hasVisited");
 
-    if (!hasVisited) {
-      //navigate("Coins");
-      sessionStorage.setItem("hasVisited", "true");
-      console.log("Go to coins");
-    } else {
-      setInitialized(true);
-      console.log(`setInitialized: ${initialized}`);
-    }
+  //   if (!hasVisited) {
+  //     navigate("TodoList");
+  //     sessionStorage.setItem("hasVisited", "true");
+  //     console.log("Go to coins");
+  //   } else {
+  //     setInitialized(true);
+  //     console.log(`setInitialized: ${initialized}`);
+  //   }
 
-    return () => {
-      console.log("Home Unmounted!!!");
-    };
-  }, [navigate]);
+  //   return () => {
+  //     console.log("Home Unmounted!!!");
+  //   };
+  // }, [navigate]);
 
-  if (!initialized) {
-    return null;
-  }
+  // if (!initialized) {
+  //   return null;
+  // }
+  // <---------------------------------------------------------------------------------------------
+  // --------------------------------------------------------------------------------------------->
 
   return (
     <Container>
-      <ImageContainer>
-        <LINK to="Coins">
-          <ProjectImg src={cryptoImg}></ProjectImg>
-        </LINK>
-      </ImageContainer>
+      <ProjectContainer>
+        <ImageContainer>
+          <LINK to="Coins">
+            <ProjectImg src={cryptoImg}></ProjectImg>
+          </LINK>
+          <TooltipText>Crypto Tracker</TooltipText>
+        </ImageContainer>
+        <ImageContainer>
+          <LINK to="TodoList">
+            <ProjectImg src={todo}></ProjectImg>
+          </LINK>
+          <TooltipText>Todo List</TooltipText>
+        </ImageContainer>
+      </ProjectContainer>
       <Title>
         Welcome to
         <hr /> React Master Class
