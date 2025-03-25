@@ -14,5 +14,7 @@ declare module "styled-components" {
     bgShadowColor: string;
     accentColor: string;
     backgroundImage: string;
+    bgTitleColor: string;
+    textTitleColor: string;
   }
 }

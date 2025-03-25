@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import cryptoImg from "../images/crypto.jpg";
 import todo from "../images/todo.jpg";
 

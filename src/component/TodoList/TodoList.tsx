@@ -1,11 +1,17 @@
 import styled from "styled-components";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { Categories, todoCategory, todoSelector } from "../../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
+import TodoCategory from "./TodoCategory";
+import {
+  todoSelector,
+  showInputAtom,
+  showMgrPopupAtom,
+  showMoveToPopupAtom,
+} from "./atomsForTodo";
 
 const Container = styled.div`
-  max-width: 30vw;
+  max-width: 480px;
   margin: 20px auto;
   gap: 10px;
   display: flex;
@@ -13,45 +19,34 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  background-color: ${(props) => props.theme.bgHovorColor};
-  color: ${(props) => props.theme.textHoverColor};
+  background-color: ${(props) => props.theme.bgTitleColor};
+  color: ${(props) => props.theme.textTitleColor};
   text-align: center;
   padding: 10px;
   font-weight: bold;
   font-size: 30px;
-`;
-
-const Selet = styled.select`
-  width: 30%;
+  border-radius: 10px;
 `;
 
 function TodoList() {
-  const [todoCat, setTodoCat] = useRecoilState(todoCategory);
   const todoSel = useRecoilValue(todoSelector);
+  const setShowInput = useSetRecoilState(showInputAtom);
+  const setMgrPopup = useSetRecoilState(showMgrPopupAtom);
+  const setMoveToPopup = useSetRecoilState(showMoveToPopupAtom);
 
-  const onChangeHandler = (e: React.FormEvent<HTMLSelectElement>) => {
-    const {
-      currentTarget: { value },
-    } = e;
-    setTodoCat(value as Categories);
+  const onClickContainer = () => {
+    setShowInput(false);
+    setMgrPopup(false);
+    setMoveToPopup(false);
   };
 
   return (
     <>
-      <Container>
+      <Container onClick={onClickContainer}>
         <Title>To Do List</Title>
-        <Selet onChange={onChangeHandler} value={todoCat}>
-          <option value={Categories.ALL}>ALL</option>
-          <option value={Categories.TO_DO}>TODO</option>
-          <option value={Categories.DOING}>DOING</option>
-          <option value={Categories.DONE}>DONE</option>
-        </Selet>
+        <TodoCategory />
         <CreateTodo />
         <ul>
-          {/* {todoArr.map((todo) => (
-            <Todo key={todo.id} {...todo} />
-          ))}
-          <hr /> */}
           {todoSel.map((todo) => (
             <Todo key={todo.id} {...todo} />
           ))}

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { todoCategory, todoDataSet, Categories } from "../../atoms";
+import { saveTodoItems } from "./Todo";
+import { todoCategory, todoDataSet, Categories } from "./atomsForTodo";
 
 const Form = styled.form`
   display: flex;
@@ -14,25 +15,35 @@ const Input = styled.input`
   height: 50px;
 `;
 
+const ButtonStyle = styled.button`
+  background-color: ${(props) => props.theme.bgShadowColor};
+  border: 1px solid ${(props) => props.theme.borderShadow};
+  color: ${(props) => props.theme.textColor};
+`;
+
 interface IForm {
   todo: string;
 }
 
 function CreateTodo() {
   const { register, handleSubmit, setValue, setError } = useForm<IForm>();
-  const setTodoArr = useSetRecoilState(todoDataSet);
-  const currCat = useRecoilValue<Categories>(todoCategory);
+  const setToDos = useSetRecoilState(todoDataSet);
+  const currCat = useRecoilValue<string>(todoCategory);
 
   const todoHandler = ({ todo }: IForm) => {
     setValue("todo", "");
-    setTodoArr((prev) => [
-      {
-        text: todo,
-        id: Date.now(),
-        category: currCat === Categories.ALL ? Categories.TO_DO : currCat,
-      },
-      ...prev,
-    ]);
+    setToDos((prev) => {
+      const newToDos = [
+        {
+          text: todo,
+          id: Date.now(),
+          category: currCat === Categories.ALL ? Categories.TO_DO : currCat,
+        },
+        ...prev,
+      ];
+      saveTodoItems(newToDos);
+      return newToDos;
+    });
     setError("todo", {}, { shouldFocus: true });
   };
 
@@ -45,7 +56,7 @@ function CreateTodo() {
           })}
           placeholder="Input new todo"
         ></Input>
-        <button>ADD</button>
+        <ButtonStyle>ADD</ButtonStyle>
       </Form>
     </>
   );

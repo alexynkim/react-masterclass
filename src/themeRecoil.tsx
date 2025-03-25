@@ -17,6 +17,8 @@ const darkTheme: DefaultTheme = {
   bgShadowColor: "rgba(30,80,100, 0.5)",
   accentColor: "#7bdfb8",
   backgroundImage: bgImgdark,
+  bgTitleColor: "#00344E",
+  textTitleColor: "#e3f1f3",
 };
 
 const lightTheme: DefaultTheme = {
@@ -30,6 +32,8 @@ const lightTheme: DefaultTheme = {
   bgShadowColor: "rgba(130,180,216, 0.5)",
   accentColor: "#0d572b",
   backgroundImage: bgImglight,
+  bgTitleColor: "#A4C1D4",
+  textTitleColor: "#031b25",
 };
 
 export const useThemeSetValue = () => {
@@ -47,7 +51,6 @@ export const useThemeValue = (): DefaultTheme => {
   useEffect(() => {
     if (Object.keys(theme).length === 0) {
       setTheme(darkTheme);
-      console.log("Set Default Theme");
     }
   }, []);
 

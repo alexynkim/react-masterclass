@@ -15,6 +15,8 @@ const darkTheme: DefaultTheme = {
   bgShadowColor: "rgba(5,70,90, 0.5)",
   accentColor: "#7bdfb8",
   backgroundImage: bgImgdark,
+  bgTitleColor: "#031b25",
+  textTitleColor: "#e3f1f3",
 };
 
 const lightTheme: DefaultTheme = {
@@ -28,6 +30,8 @@ const lightTheme: DefaultTheme = {
   bgShadowColor: "rgba(230,240,246, 0.5)",
   accentColor: "#0d572b",
   backgroundImage: bgImglight,
+  bgTitleColor: "#e3f1f3",
+  textTitleColor: "#031b25",
 };
 
 type ThemeContextType = {
