@@ -19,6 +19,8 @@ const ButtonContainer = styled.div`
 
 const TodoItem = styled.p`
   padding: 3px 20px 3px 3px;
+  word-break: break-word;
+  white-space: normal;
 `;
 
 const ButtonStyle = styled.button`
