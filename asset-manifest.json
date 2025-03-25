@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/react-masterclass/static/js/main.64e08c02.js",
+    "main.js": "/react-masterclass/static/js/main.1a98914c.js",
     "static/media/bgImgdark.jpg": "/react-masterclass/static/media/bgImgdark.9ab02ceb7243bbbd4967.jpg",
     "static/media/bgImglight.jpg": "/react-masterclass/static/media/bgImglight.7360c575d064520468bc.jpg",
     "static/media/todo.jpg": "/react-masterclass/static/media/todo.59d8e69f30abdcfa250b.jpg",
     "static/media/crypto.jpg": "/react-masterclass/static/media/crypto.f147df86e2979e388f90.jpg",
     "index.html": "/react-masterclass/index.html",
-    "main.64e08c02.js.map": "/react-masterclass/static/js/main.64e08c02.js.map"
+    "main.1a98914c.js.map": "/react-masterclass/static/js/main.1a98914c.js.map"
   },
   "entrypoints": [
-    "static/js/main.64e08c02.js"
+    "static/js/main.1a98914c.js"
   ]
 }
