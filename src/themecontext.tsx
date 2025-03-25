@@ -12,6 +12,7 @@ const darkTheme: DefaultTheme = {
   bgHovorColor: "#75E6DA",
   textHoverColor: "#0e4d5a",
   borderShadow: "rgba(255, 255, 255, 0.5)",
+  bgShadowColor: "rgba(5,70,90, 0.5)",
   accentColor: "#7bdfb8",
   backgroundImage: bgImgdark,
 };
@@ -24,6 +25,7 @@ const lightTheme: DefaultTheme = {
   bgHovorColor: "#0f6477",
   textHoverColor: "#c7e4e1",
   borderShadow: "rgba(0, 0, 0, 0.2)",
+  bgShadowColor: "rgba(230,240,246, 0.5)",
   accentColor: "#0d572b",
   backgroundImage: bgImglight,
 };

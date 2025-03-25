@@ -14,12 +14,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={true} />
-      </QueryClientProvider>
-    </RecoilRoot>
-  </React.StrictMode>
+  //<React.StrictMode>
+  <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
+  </RecoilRoot>
+  //</React.StrictMode>
 );

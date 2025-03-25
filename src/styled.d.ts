@@ -11,6 +11,7 @@ declare module "styled-components" {
     bgHovorColor: string;
     textHoverColor: string;
     borderShadow: string;
+    bgShadowColor: string;
     accentColor: string;
     backgroundImage: string;
   }

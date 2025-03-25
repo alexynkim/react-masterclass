@@ -1,133 +1,62 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { Categories, todoCategory, todoSelector } from "../../atoms";
+import CreateTodo from "./CreateTodo";
+import Todo from "./Todo";
 
-const FORM = styled.form`
+const Container = styled.div`
   max-width: 30vw;
   margin: 20px auto;
+  gap: 10px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 `;
 
-// function TodoList() {
-//   const [todo, setTodo] = useState("");
+const Title = styled.h1`
+  background-color: ${(props) => props.theme.bgHovorColor};
+  color: ${(props) => props.theme.textHoverColor};
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 30px;
+`;
 
-//   const onChangeHandler = (e: React.FormEvent<HTMLInputElement>): void => {
-//     const {
-//       currentTarget: { value },
-//     } = e;
-//     setTodo(value);
-//     console.log(value);
-//   };
-
-//   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
-//     e.preventDefault();
-//     console.log(todo);
-//     setTodo("");
-//   };
-
-//   return (
-//     <>
-//       <form onSubmit={onSubmitHandler}>
-//         <input
-//           onChange={onChangeHandler}
-//           value={todo}
-//           placeholder="Input new todo"
-//         ></input>
-//       </form>
-//     </>
-//   );
-// }
-
-interface IFORM {
-  Email: string;
-  FirstName: string;
-  LastName: string;
-  Username: string;
-  Password: string;
-  Password1: string;
-}
+const Selet = styled.select`
+  width: 30%;
+`;
 
 function TodoList() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFORM>({
-    defaultValues: {
-      Email: "@naver.com",
-    },
-  });
+  const [todoCat, setTodoCat] = useRecoilState(todoCategory);
+  const todoSel = useRecoilValue(todoSelector);
 
-  const onValid = (data: any) => {
-    console.log(data);
+  const onChangeHandler = (e: React.FormEvent<HTMLSelectElement>) => {
+    const {
+      currentTarget: { value },
+    } = e;
+    setTodoCat(value as Categories);
   };
-  console.log(errors);
 
   return (
     <>
-      <FORM onSubmit={handleSubmit(onValid)}>
-        <input
-          {...register("Email", {
-            required: "Email is required",
-            minLength: {
-              value: 5,
-              message: "Too short",
-            },
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
-              message: "Only @gmail.com emails are allowed",
-            },
-          })}
-          placeholder="Email"
-        ></input>
-        <span>{errors?.Email?.message}</span>
-        <input
-          {...register("FirstName", { required: "FirstName is required" })}
-          placeholder="First Name"
-        ></input>
-        <span>{errors?.FirstName?.message}</span>
-        <input
-          {...register("LastName", { required: "LastName is required" })}
-          placeholder="Last Name"
-        ></input>
-        <span>{errors?.LastName?.message}</span>
-        <input
-          {...register("Username", {
-            required: "Username is required",
-            minLength: {
-              value: 5,
-              message: "Too short",
-            },
-          })}
-          placeholder="Username"
-        ></input>
-        <span>{errors?.Username?.message}</span>
-        <input
-          {...register("Password", {
-            required: "Password is required",
-            minLength: {
-              value: 5,
-              message: "Too short",
-            },
-          })}
-          placeholder="Password"
-        ></input>
-        <span>{errors?.Password?.message}</span>
-        <input
-          {...register("Password1", {
-            required: "Confirm Password is required",
-            minLength: {
-              value: 5,
-              message: "Too short",
-            },
-          })}
-          placeholder="Confirm Password"
-        ></input>
-        <span>{errors?.Password1?.message}</span>
-        <button>ADD</button>
-      </FORM>
+      <Container>
+        <Title>To Do List</Title>
+        <Selet onChange={onChangeHandler} value={todoCat}>
+          <option value={Categories.ALL}>ALL</option>
+          <option value={Categories.TO_DO}>TODO</option>
+          <option value={Categories.DOING}>DOING</option>
+          <option value={Categories.DONE}>DONE</option>
+        </Selet>
+        <CreateTodo />
+        <ul>
+          {/* {todoArr.map((todo) => (
+            <Todo key={todo.id} {...todo} />
+          ))}
+          <hr /> */}
+          {todoSel.map((todo) => (
+            <Todo key={todo.id} {...todo} />
+          ))}
+        </ul>
+      </Container>
     </>
   );
 }
