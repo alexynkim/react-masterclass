@@ -3,13 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
 import TodoCategory from "./TodoCategory";
-import {
-  todoSelector,
-  // showInputAtom,
-  // showMgrPopupAtom,
-  // showMoveToPopupAtom,
-  categoryMenuAtom,
-} from "./atomsForTodo";
+import { todoSelector, categoryMenuAtom } from "./atomsForTodo";
 
 const Container = styled.div`
   max-width: 480px;
@@ -31,9 +25,6 @@ const Title = styled.h1`
 
 function TodoList() {
   const todoSel = useRecoilValue(todoSelector);
-  // const setShowInput = useSetRecoilState(showInputAtom);
-  // const setMgrPopup = useSetRecoilState(showMgrPopupAtom);
-  // const setMoveToPopup = useSetRecoilState(showMoveToPopupAtom);
   const setCategoryMenu = useSetRecoilState(categoryMenuAtom);
 
   const onClickContainer = () => {
