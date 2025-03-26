@@ -5,9 +5,10 @@ import Todo from "./Todo";
 import TodoCategory from "./TodoCategory";
 import {
   todoSelector,
-  showInputAtom,
-  showMgrPopupAtom,
-  showMoveToPopupAtom,
+  // showInputAtom,
+  // showMgrPopupAtom,
+  // showMoveToPopupAtom,
+  categoryMenuAtom,
 } from "./atomsForTodo";
 
 const Container = styled.div`
@@ -30,14 +31,17 @@ const Title = styled.h1`
 
 function TodoList() {
   const todoSel = useRecoilValue(todoSelector);
-  const setShowInput = useSetRecoilState(showInputAtom);
-  const setMgrPopup = useSetRecoilState(showMgrPopupAtom);
-  const setMoveToPopup = useSetRecoilState(showMoveToPopupAtom);
+  // const setShowInput = useSetRecoilState(showInputAtom);
+  // const setMgrPopup = useSetRecoilState(showMgrPopupAtom);
+  // const setMoveToPopup = useSetRecoilState(showMoveToPopupAtom);
+  const setCategoryMenu = useSetRecoilState(categoryMenuAtom);
 
   const onClickContainer = () => {
-    setShowInput(false);
-    setMgrPopup(false);
-    setMoveToPopup(false);
+    setCategoryMenu({
+      showInput: false,
+      showMgrPopup: false,
+      showMoveToPopup: false,
+    });
   };
 
   return (

@@ -7,9 +7,7 @@ import {
   todoCategory,
   todoDataSet,
   categoryList,
-  showInputAtom,
-  showMgrPopupAtom,
-  showMoveToPopupAtom,
+  categoryMenuAtom,
 } from "./atomsForTodo";
 
 const CategoryContainer = styled.div`
@@ -84,9 +82,7 @@ function TodoCategory() {
   const [toDos, setToDos] = useRecoilState(todoDataSet);
   const [todoCat, setTodoCat] = useRecoilState(todoCategory);
   const [categories, setCategories] = useRecoilState(categoryList);
-  const [showInput, setShowInput] = useRecoilState(showInputAtom);
-  const [showMgrPopup, setMgrPopup] = useRecoilState(showMgrPopupAtom);
-  const [showMoveToPopup, setMoveToPopup] = useRecoilState(showMoveToPopupAtom);
+  const [categoryMenu, setCategoryMenu] = useRecoilState(categoryMenuAtom);
 
   useEffect(() => {
     const newToDos = getTodoItems();
@@ -110,12 +106,11 @@ function TodoCategory() {
       "newCat"
     ) as HTMLInputElement;
 
-    console.log(newCatName.value);
     const categoryName = newCatName.value.toUpperCase();
     if (!categoryName.trim() || categories.includes(categoryName)) return;
 
     const update = [...categories, categoryName];
-    setShowInput(false);
+    setCategoryMenu((prev) => ({ ...prev, showInput: false }));
     setCategories(update);
     saveCategories(update);
   };
@@ -127,7 +122,7 @@ function TodoCategory() {
         : todo
     );
     const update = categories.filter((cat, i) => i !== index);
-    setMgrPopup(false);
+    setCategoryMenu((prev) => ({ ...prev, showMgrPopup: false }));
     setToDos(newToDos);
     saveTodoItems(newToDos);
     setCategories(update);
@@ -140,7 +135,7 @@ function TodoCategory() {
         ? { ...todo, category: categories[index] }
         : todo
     );
-    setMoveToPopup(false);
+    setCategoryMenu((prev) => ({ ...prev, showMoveToPopup: false }));
     setToDos(newToDos);
     saveTodoItems(newToDos);
   };
@@ -163,41 +158,43 @@ function TodoCategory() {
           ))}
         </Selet>
       </div>
-      {!showInput && !showMgrPopup && !showMoveToPopup && (
-        <Buttonbox>
-          <ButtonStyle
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowInput(true);
-            }}
-          >
-            Add
-            <br />
-            Category
-          </ButtonStyle>
-          <ButtonStyle
-            onClick={(e) => {
-              e.stopPropagation();
-              setMgrPopup(true);
-            }}
-          >
-            Manage
-            <br />
-            Category
-          </ButtonStyle>
-          <ButtonStyle
-            onClick={(e) => {
-              e.stopPropagation();
-              setMoveToPopup(true);
-            }}
-          >
-            Move
-            <br />
-            Category
-          </ButtonStyle>
-        </Buttonbox>
-      )}
-      {showInput && (
+      {!categoryMenu.showInput &&
+        !categoryMenu.showMgrPopup &&
+        !categoryMenu.showMoveToPopup && (
+          <Buttonbox>
+            <ButtonStyle
+              onClick={(e) => {
+                e.stopPropagation();
+                setCategoryMenu((prev) => ({ ...prev, showInput: true }));
+              }}
+            >
+              Add
+              <br />
+              Category
+            </ButtonStyle>
+            <ButtonStyle
+              onClick={(e) => {
+                e.stopPropagation();
+                setCategoryMenu((prev) => ({ ...prev, showMgrPopup: true }));
+              }}
+            >
+              Manage
+              <br />
+              Category
+            </ButtonStyle>
+            <ButtonStyle
+              onClick={(e) => {
+                e.stopPropagation();
+                setCategoryMenu((prev) => ({ ...prev, showMoveToPopup: true }));
+              }}
+            >
+              Move
+              <br />
+              Category
+            </ButtonStyle>
+          </Buttonbox>
+        )}
+      {categoryMenu.showInput && (
         <form onClick={(e) => e.stopPropagation()} onSubmit={onSubmitHandler}>
           <input
             type="text"
@@ -208,25 +205,22 @@ function TodoCategory() {
           />
         </form>
       )}
-      {(showMgrPopup || showMoveToPopup) && (
+      {(categoryMenu.showMgrPopup || categoryMenu.showMoveToPopup) && (
         <MgrContainer onClick={(e) => e.stopPropagation()}>
           <MgrSub>
-            {showMgrPopup ? (
+            {categoryMenu.showMgrPopup ? (
               <span>Select Category to delete</span>
             ) : (
               <span>Select Category to move</span>
             )}
-
-            {/* <button onClick={() => setMgrPopup(false)}>Cancel</button> */}
           </MgrSub>
-
           <ul>
             {categories.map((cat, i) => {
               if (i !== 0) {
                 return (
                   <MgrItems key={i}>
                     <span>{cat}</span>
-                    {showMgrPopup
+                    {categoryMenu.showMgrPopup
                       ? i !== 1 && (
                           <ButtonPopup onClick={() => onDeleteHandler(i)}>
                             ❌

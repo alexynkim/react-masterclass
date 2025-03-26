@@ -45,17 +45,11 @@ export const categoryList = atom<string[]>({
   ],
 });
 
-export const showInputAtom = atom({
-  key: "ShwoInput",
-  default: false,
-});
-
-export const showMgrPopupAtom = atom({
-  key: "ShowMgrPopup",
-  default: false,
-});
-
-export const showMoveToPopupAtom = atom({
-  key: "ShowMoveToPopup",
-  default: false,
+export const categoryMenuAtom = atom({
+  key: "CategoryMenuAtom",
+  default: {
+    showInput: false,
+    showMgrPopup: false,
+    showMoveToPopup: false,
+  },
 });
