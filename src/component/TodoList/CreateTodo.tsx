@@ -19,6 +19,12 @@ const ButtonStyle = styled.button`
   background-color: ${(props) => props.theme.bgShadowColor};
   border: 1px solid ${(props) => props.theme.borderShadow};
   color: ${(props) => props.theme.textColor};
+
+  &:hover {
+    cursor: pointer;
+    border: 1px solid ${(props) => props.theme.borderShadow};
+    background-color: ${(props) => props.theme.bgTitleColor};
+  }
 `;
 
 interface IForm {

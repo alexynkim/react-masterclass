@@ -11,6 +11,11 @@ const ListContainer = styled.li`
   background-color: ${(props) => props.theme.bgShadowColor};
   padding: 5px;
   border-radius: 10px;
+
+  &:hover {
+    border: 1px solid ${(props) => props.theme.borderShadow};
+    background-color: ${(props) => props.theme.bgTitleColor};
+  }
 `;
 const ButtonContainer = styled.div`
   display: flex;
@@ -27,6 +32,9 @@ const ButtonStyle = styled.button`
   font-size: 20px;
   border: none;
   background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const saveTodoItems = (toDos: ITodo[]) => {
