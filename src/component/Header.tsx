@@ -101,20 +101,7 @@ const Header: React.FC = () => {
             Home
           </NavLink>
           <NavLink to="Coins">Crypto</NavLink>
-          <NavLink
-            to="https://nomadcoders.co/react-masterclass/lobby"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Course
-          </NavLink>
-          <NavLink
-            to="https://nomadcoders.co/c/reactjs-challenge/lobby"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Challenge
-          </NavLink>
+          <NavLink to="TodoList">TodoList</NavLink>
         </MenuContainer>
       </MenuContainer>
     </HeaderConatiner>
