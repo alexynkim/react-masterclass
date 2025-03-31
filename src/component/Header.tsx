@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 //import { useTheme } from "../themeContext";
 import { useThemeSetValue } from "../themeRecoil";
 
@@ -78,9 +78,22 @@ const NavButton = styled(Link)`
   }
 `;
 
+const ThemeBtn = styled.button`
+  position: fixed;
+  top: 2%;
+  left: 90%;
+  z-index: 100;
+`;
+
 const Header: React.FC = () => {
   //const { toggleTheme } = useTheme();
   const toggleTheme = useThemeSetValue();
+  const location = useLocation();
+
+  if (location.pathname === "/Anim") {
+    //return <ThemeBtn>THEME</ThemeBtn>;
+    return null;
+  }
 
   return (
     <HeaderConatiner>
@@ -102,6 +115,8 @@ const Header: React.FC = () => {
           </NavLink>
           <NavLink to="Coins">Crypto</NavLink>
           <NavLink to="TodoList">TodoList</NavLink>
+          <NavLink to="Kanban">Kanban</NavLink>
+          <NavLink to="Anim">Animation</NavLink>
         </MenuContainer>
       </MenuContainer>
     </HeaderConatiner>

@@ -6,6 +6,8 @@ import Coin from "./component/Coins/Coin";
 import Chart from "./component/Coins/Chart";
 import Price from "./component/Coins/Price";
 import TodoList from "./component/TodoList/TodoList";
+import Kanban from "./component/kanban/kanban";
+import Animation from "./component/Animation/Animation";
 
 //import { createBrowserRouter } from "react-router-dom";
 import { createHashRouter } from "react-router-dom";
@@ -42,6 +44,14 @@ const router = createHashRouter(
         {
           path: "TodoList",
           element: <TodoList />,
+        },
+        {
+          path: "Kanban",
+          element: <Kanban />,
+        },
+        {
+          path: "Anim",
+          element: <Animation />,
         },
         {
           path: "Style",
